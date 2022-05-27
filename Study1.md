@@ -34,14 +34,14 @@
 ## Hello, World!
 
 ### 코드
-```rust=
+```rust
 fn main() {
     println!("Hello, world!");
 }
 ```
 
 ### 실행하기
-```cmd=
+```cmd
 > rustc main.rs
 > ./main
 Hello, world!
@@ -69,12 +69,12 @@ Hello, world!
 
 ## Hello, Cargo!
 - 빌드 시스템 및 패키지 매니저
-    ```cmd=
+    ```cmd
     > cargo --version
     ```
 
 - 프로젝트 생성
-    ```cmd=
+    ```cmd
     > cargo new hello_cargo --bin
     > cd hello_cargo
     ```
@@ -131,7 +131,7 @@ cargo new guessing_game --bin
 ```
 ### 추리값을 처리하기
 
-```rust=
+```rust
 use std::io;
 
 fn main() {
@@ -223,7 +223,7 @@ rand = "0.4.0"
 ```
 
 ### 임의의 숫자 생성하기
-```rust=
+```rust
 extern crate rand;
 
 use std::io;
@@ -250,7 +250,7 @@ fn main() {
 
 ### 비밀번호와 추리값을 비교하기
 
-```rust=
+```rust
 extern crate rand;
 
 use std::io;
@@ -295,7 +295,7 @@ match guess.cmp(&secret_number) {
 ### Shadowing
 - 이전 값을 가리는 것을 허용
 
-```rust=
+```rust
 let mut guess = String::new();
 
 io::stdin().read_line(&mut guess)
@@ -315,14 +315,14 @@ let guess: u32 = guess.trim().parse()
 
 ### 잘못된 입력값 처리하기
 
-```rust=
+```rust
 let guess: u32 = match guess.trim().parse() {
     Ok(num) => num,
     Err(_) => continue,
 };
 ```
 #### 완성된 코드
-```rust=
+```rust
 extern crate rand;
 
 use std::io;
