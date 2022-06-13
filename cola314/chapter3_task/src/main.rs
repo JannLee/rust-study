@@ -4,62 +4,58 @@ fn main() {
 
 #[allow(dead_code)]
 fn to_fahrenheit(celsius: f64) -> f64 {
-  celsius * 1.8 + 32.0
+    celsius * 1.8 + 32.0
 }
 
 #[allow(dead_code)]
 fn to_celsius(fahrenheit: f64) -> f64 {
-  (fahrenheit - 32.0) / 1.8
+    (fahrenheit - 32.0) / 1.8
 }
 
 #[allow(dead_code)]
 fn fibonacci(n: u32) -> u64 {
-  match n {
-    0 => 0,
-    1 => 1,
-    _ => fibonacci(n - 1) + fibonacci(n - 2)
-  }
+    match n {
+        0 => 0,
+        1 => 1,
+        _ => fibonacci(n - 1) + fibonacci(n - 2),
+    }
 }
 
 fn lyrics_of_the_twelve_days_of_christmas() -> String {
-  let days = [
-    "first",
-    "second",
-    "third",
-    "fourth",
-    "fifth",
-    "sixth",
-    "seventh",
-    "eighth",
-    "ninth",
-    "tenth",
-    "eleventh",
-    "twelfth"
-  ];
-  let items = [
-    "Two turtle doves, and",
-    "Three french hens",
-    "Four calling birds",
-    "Five golden rings",
-    "Six geese a-laying",
-    "Seven swans a-swimming",
-    "Eight maids a-milking",
-    "Nine ladies dancing",
-    "Ten lords a-leaping",
-    "Eleven pipers piping",
-    "Twelve drummers drumming",
-  ];
-  
-  let mut lyrics = String::new();
-  for i in 0..12 {
-    lyrics.push_str(format!("On the {} day of Christmas, my true love sent to me\n", days[i]).as_str());
-    for j in (0..i).rev() {
-      lyrics.push_str(format!("{}\n", items[j]).as_str());
-    }
-    lyrics.push_str("A partridge in a pear tree\n");
-  }
+    let days = [
+        "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth",
+        "tenth", "eleventh", "twelfth",
+    ];
+    let items = [
+        "Two turtle doves, and",
+        "Three french hens",
+        "Four calling birds",
+        "Five golden rings",
+        "Six geese a-laying",
+        "Seven swans a-swimming",
+        "Eight maids a-milking",
+        "Nine ladies dancing",
+        "Ten lords a-leaping",
+        "Eleven pipers piping",
+        "Twelve drummers drumming",
+    ];
 
-  lyrics
+    let mut lyrics = String::new();
+    for i in 0..12 {
+        lyrics.push_str(
+            format!(
+                "On the {} day of Christmas, my true love sent to me\n",
+                days[i]
+            )
+            .as_str(),
+        );
+        for j in (0..i).rev() {
+            lyrics.push_str(format!("{}\n", items[j]).as_str());
+        }
+        lyrics.push_str("A partridge in a pear tree\n");
+    }
+
+    lyrics
 }
 
 #[cfg(test)]
@@ -85,7 +81,7 @@ mod tests {
     fn test_lyrics_of_the_twelve_days_of_christmas() {
         assert_eq!(
             lyrics_of_the_twelve_days_of_christmas(),
-"On the first day of Christmas, my true love sent to me
+            "On the first day of Christmas, my true love sent to me
 A partridge in a pear tree
 On the second day of Christmas, my true love sent to me
 Two turtle doves, and
@@ -175,6 +171,7 @@ Four calling birds
 Three french hens
 Two turtle doves, and
 A partridge in a pear tree
-");
+"
+        );
     }
 }
