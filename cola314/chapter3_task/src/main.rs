@@ -14,12 +14,10 @@ fn to_celsius(fahrenheit: f64) -> f64 {
 
 #[allow(dead_code)]
 fn fibonacci(n: u32) -> u64 {
-  if n == 0 {
-    0
-  } else if n == 1{
-    1
-  } else {
-    fibonacci(n - 1) + fibonacci(n - 2)
+  match n {
+    0 => 0,
+    1 => 1,
+    _ => fibonacci(n - 1) + fibonacci(n - 2)
   }
 }
 
