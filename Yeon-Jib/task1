@@ -1,0 +1,73 @@
+
+
+fn main() {
+    //make_finbonacci_numbers(5);
+    //sing_carol();
+
+}
+
+
+// 화씨 -> 섭씨
+fn to_celsius(fahrenheit: f64) -> f64{
+    (fahrenheit-32.0)/1.8
+}
+// 섭씨 -> 화씨
+fn to_fahrenheit(celsius: f64) -> f64{
+    (celsius * 1.8) + 32.0
+}
+
+
+fn make_finbonacci_numbers(n: u32) -> u32 {
+    match n {
+		0 => panic!("error!"),
+		1 | 2 => 1,
+		3 => 2,
+		_ => make_finbonacci_numbers(n - 1) + make_finbonacci_numbers(n - 2)
+	}
+}
+/*
+fn make_finbonacci_numbers(n: u32) -> u32 {
+    let mut ret_number = 0;
+    if n <= 0 {
+        panic!("zero is not a right argument to fibonacci_reccursive()!")
+    }
+    if n == 1{
+        ret_number = 1;
+    }
+    else if n == 2{
+        ret_number = 1;
+    }
+    else{
+        ret_number = make_finbonacci_numbers(n-1) + make_finbonacci_numbers(n-2);
+    }
+    println!("{}", ret_number);
+    ret_number
+}
+*/
+
+fn sing_carol()
+{
+    let ordinal_number = ["first ", "second ", "third", "fourth", "fifth", "sixth","seventh", "eighth", "ninth", "tenth", "11th", "12th"];
+    let lyrics = ["A partridge in a pear tree", 
+    "Two turtle-doves",
+    "Three French hens",
+    "Four calling birds",
+    "Five golden rings (five golden rings)",
+    "Six geese a laying",
+    "Seven swans a swimming",
+    "Eight maids a milking",
+    "Nine ladies dancing",
+    "Ten lords a-leaping",
+    "I sent 11 pipers piping",
+    "12 drummers drumming"];
+    for n in (0..12){
+        println!("On the {} day of Christmas", ordinal_number[n]);
+        for m in (0..n).rev(){
+            if m == 0{
+                print!("And ");
+            }
+            println!("{}", lyrics[m]);
+        }
+
+    }
+}
