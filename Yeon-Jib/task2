@@ -1,0 +1,99 @@
+use std::collections::{HashMap, HashSet};
+use std::io;
+
+fn mode(list: &mut Vec<i32>) ->i32{
+    let mut score: HashMap<i32, i32> = HashMap::new();
+    let mut max_key = 0;
+    let mut max_val = 0;
+    for it in list.iter(){
+        let count = score.entry(*it).or_insert(0);
+        *count +=1;
+    }
+
+    for (k, v) in score.iter() {
+        if *v > max_val {
+            max_key = *k;
+            max_val = *v;
+        }
+    }
+    max_key
+}
+
+fn gen_av_median_mode(list: &mut Vec<i32>) ->  HashMap<String, f32>{
+    let mut result: HashMap<String,_> = HashMap::new();
+    if list.len() !=0{
+    list.sort();
+    
+    let total:i32 = list.iter().sum();
+    let average:f32 = (total as f32)/(list.len()as f32);
+
+    result.insert(String::from("average"),average);
+    result.insert(String::from("median"), list[list.len()/2] as f32);
+    list.iter().count();
+    result.insert(String::from("mode"),mode(list) as f32);
+    println!("{:?}",result );
+    }
+    result
+}
+
+fn is_consonant( c: char)-> bool{
+    if c == 'a' ||c == 'e'||c == 'i'||c == 'o'||c == 'u'
+    {
+        true
+    }
+    else {
+        false
+    }
+}
+
+fn change_string(s: &str)-> String{
+
+    let c = s.as_bytes()[0] as char;
+    let backup_str = String::from(s);
+    if is_consonant(c) == false{
+        format!("{}-{}ay", s[1..].to_string(),c)
+    }
+    else{
+        format!("{}-hay", backup_str)
+    }
+}
+
+  
+
+
+fn add_eployee(name :&str, department:&str, managed_list: &mut HashMap<String,String>)
+{
+    managed_list.insert(department.to_string(), name.to_string());
+}
+
+
+
+fn manage_employees(){
+    let mut employees_info: HashMap<String,String> = HashMap::new();
+    loop{
+        println!("Please Input Your Command~!");
+        let mut command = String::new();
+
+        io::stdin().read_line(&mut command)
+            .expect("Failed to read line");
+        
+        let commands :Vec<&str>= command.split_ascii_whitespace().collect();
+
+        match commands[0]{
+            "Add" => employees_info.insert(commands[3].to_string(), commands[1].to_string()),
+            "Search" => println!("{:?}", employees_info.get(commands[1].to_string()).take()),
+            _   => println!("please check your param"),
+        }
+        
+    }
+}
+
+
+
+
+fn main() {
+    println!("Hello, world!");
+    let mut list = vec![1,2,2,2,2,3,3,3,4,4,5,5,6];
+    gen_av_median_mode(&mut list);
+    println!("{}",change_string("first"));
+}
