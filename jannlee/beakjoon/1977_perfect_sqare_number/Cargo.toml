@@ -1,5 +1,5 @@
 [package]
-name = "1977_perfect_sqare_number"
+name = "perfect_sqare_number"
 version = "0.1.0"
 edition = "2021"
 
