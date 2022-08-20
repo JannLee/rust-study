@@ -1,22 +1,39 @@
 use std::io;
+use std::sync::{Mutex, Arc};
+use std::thread;
 
 fn main() {
     let grid_n = get_usize_integer();
     let student_infos = get_student_infos(grid_n);
     let mut class_room : Vec<Vec<usize>> = vec![vec![0; grid_n]; grid_n];
     let mut best_pos : Position;
-    let mut result = 0;
 
     for student_info in student_infos.iter() {
         best_pos = get_best_position(grid_n, student_info, &mut class_room);
         class_room[(-best_pos.x) as usize][(-best_pos.y) as usize] = student_info.student_number;
     }
     
-    for student_info in student_infos.iter() {
-        result += get_score(grid_n, student_info, &mut class_room);
+    let counter = Arc::new(Mutex::new(0));
+    let mut handles = vec![];
+    let size = student_infos.len();
+
+    for _index in 0..size {
+        let mut class = class_room.clone();
+        let student_info = student_infos[_index].clone();
+        let counter = Arc::clone(&counter);
+        let handle = thread::spawn(move || {
+            let mut num = counter.lock().unwrap();
+
+            *num += get_score(grid_n, &student_info, &mut class);
+        });
+        handles.push(handle);
     }
 
-    println!("{}", result);
+    for handle in handles {
+        handle.join().unwrap();
+    }
+
+    println!("{}", *counter.lock().unwrap());
 }
 
 fn get_usize_integer() -> usize {
@@ -25,6 +42,7 @@ fn get_usize_integer() -> usize {
     input.trim().parse().unwrap()
 }
 
+#[derive(Clone)]
 struct Student {
     student_number : usize,
     favorite_friends : [usize; 4]
