@@ -1,49 +1,43 @@
 use std::io;
 
 fn main() {
-    let mut m = String::new();
-    let mut n = String::new();
-
-    io::stdin().read_line(&mut m)
-        .expect("Failed to read line");
-
-    let m: u64 = match m.trim().parse() {
-        Ok(num) => num,
-        Err(_) => 0,
-    };
-
-    io::stdin().read_line(&mut n)
-        .expect("Failed to read line");
-
-    let n: u64 = match n.trim().parse() {
-        Ok(num) => num,
-        Err(_) => 0,
-    };
+    let m = get_positive_integer();
+    let n = get_positive_integer();
     
-    let mut result = 0;
-    let mut min_square = 0;
+    let (result, min_square) = get_square_number(m, n);
+
+    match result {
+        0 => println!("-1"),
+        _ => println!("{}\n{}", result, min_square),
+    }
+}
+
+fn get_positive_integer() -> u64 {
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).expect("Failed to get integer");
+    input.trim().parse().unwrap()
+}
+
+fn get_square_number(m: u64, n: u64) -> (u64, u64) {
+    let (mut result, mut min_square) = (0, 0);
+    let mut square;
 
     for number in 1..=100 {
-        if number * number < m {
+        square = number * number;
+
+        if square < m {
 			continue;
         }
-
-		if number * number > n {
+        else if square > n {
 			break;
         }
 
-		if min_square==0 {
-            min_square = number * number;
+		if min_square == 0 {
+            min_square = square;
         }
 
-		result += number * number;
+		result += square;
     }
-    
-    match result {
-        0 => println!("-1"),
-        _ => {
-            println!("{}", result);
-            println!("{}", min_square);
-        }
-    }
+
+    (result, min_square)
 }
