@@ -1,14 +1,22 @@
+use std::io::stdin;
+
 fn main() {
-    let n = read_int();
-    let mut sum = 1;
-    for _ in 0..n {
-        sum += read_int() - 1;
+    if let Some(n) = read_int() {
+        let mut sum = 1;
+        for _ in 0..n {
+            if let Some(cur) = read_int() {
+                sum += cur - 1;
+            }
+        }
+        println!("{}", sum);
     }
-    println!("{}", sum);
 }
 
-fn read_int() -> i32 {
+fn read_int() -> Option<i32> {
     let mut input = String::new();
-    std::io::stdin().read_line(&mut input).unwrap();
-    input.trim().parse().unwrap()
+    let result = stdin().read_line(&mut input);
+    if let Ok(_) = result {
+        return input.trim().parse().ok();
+    }
+    None
 }
