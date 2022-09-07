@@ -9,21 +9,22 @@ fn main() {
         let command = get_string();
         let c = command.chars().nth(0).unwrap();
 
-        if c == 'a' || c == 'A'
-        {
-            let commands: Vec<&str> = command.split_whitespace().collect();
-            add(&mut company, commands[3], commands[1]);
-        }
-        else if c == 'q' || c == 'Q'
-        {
-            break;
-        }
-        else if c == 'p' || c == 'P'
-        {
-            print(&company);
+        match c {
+            'A' | 'a' => {
+                let commands: Vec<&str> = command.split_whitespace().collect();
+                add(&mut company, commands[3], commands[1]);
+            },
+            'Q' | 'q' => {
+                break;
+            },
+            'p' | 'P' => {
+                print(&company);
+            }
+            _ => {
+                //println!("_");
+            }
         }
     }
-    
 }
 
 fn get_string() -> String {
